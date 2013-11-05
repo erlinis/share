@@ -1,0 +1,14 @@
+defaults: &defaults
+  adapter: postgresql
+  template: template0
+  host: localhost
+
+
+development:
+  <<: *defaults
+  database: share_development
+
+test:
+  <<: *defaults
+  min_messages: warning #magic sauce
+  database: share_test
