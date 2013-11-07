@@ -10,5 +10,6 @@ FactoryGirl.define do
   end
 end
 
-FactoryGirl.build :user_message
 
+
+# FactoryGirl.build :user_message

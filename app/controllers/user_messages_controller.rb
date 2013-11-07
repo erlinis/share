@@ -20,16 +20,28 @@ class UserMessagesController < ApplicationController
     end
   end
 
-  def edit
-    # code goes here
+  def show
+     @user_message = UserMessage.find(params[:id])
   end
 
-  def udpate
-    # code goes here
+  def edit
+     @user_message = UserMessage.find(params[:id])
+  end
+
+  def update
+    @user_message = UserMessage.find(params[:id])
+    if @user_message.update_attributes(params[:user_message])
+      redirect_to @user_message
+    else
+      render :action => :edit
+    end
   end
 
   def destroy
-    # code goes here
+    @user_message = UserMessage.find(params[:id])
+    if @user_message.destroy
+      redirect_to action: :index
+    end
   end
 
 end
