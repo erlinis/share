@@ -1,6 +1,6 @@
 Share::Application.routes.draw do
-  get "pages/index"
-
+  
+  resources :user_messages
  
   # The priority is based upon order of creation:
   # first created -> highest priority.

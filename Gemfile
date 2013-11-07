@@ -6,10 +6,10 @@ gem 'rails', '3.2.15'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+
 gem "therubyracer"
 gem "less-rails" 
 gem "twitter-bootstrap-rails"
-gem 'factory_girl_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -26,8 +26,12 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
+group :test do
+  gem "shoulda-matchers"
+end
 
 gem 'jquery-rails'
 
