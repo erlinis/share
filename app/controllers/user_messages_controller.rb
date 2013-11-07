@@ -31,6 +31,7 @@ class UserMessagesController < ApplicationController
   def update
     @user_message = UserMessage.find(params[:id])
     if @user_message.update_attributes(params[:user_message])
+       flash[:notice] = 'Message updated!'
       redirect_to @user_message
     else
       render :action => :edit
@@ -40,6 +41,7 @@ class UserMessagesController < ApplicationController
   def destroy
     @user_message = UserMessage.find(params[:id])
     if @user_message.destroy
+      flash[:notice] = 'Message destroyed!'
       redirect_to action: :index
     end
   end

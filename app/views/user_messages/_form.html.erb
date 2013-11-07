@@ -1,4 +1,16 @@
 <%= form_for @user_message, :html => { :class => 'form-horizontal' } do |f| %>
+  
+<% if @user_message.errors.any? %>
+  <div id="error_explanation">
+    <h2>Oops something goes wrong: <%= pluralize(@user_message.errors.count, "error") %></h2>
+    <ul>
+    <% @user_message.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
   <div class="control-group">
     <%= f.label :message, :class => 'control-label' %>
     <div class="controls">

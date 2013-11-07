@@ -17,12 +17,11 @@ describe UserMessagesController do
   end
 
   describe "on POST 'create'" do
-    before(:each) do
-      @valid_user_message_attr = FactoryGirl.attributes_for(:user_message)
-      @invalid_user_message_attr = FactoryGirl.attributes_for(:invalid_user_message)
-    end
 
     context "with valid data" do
+      before(:each) do
+        @valid_user_message_attr = FactoryGirl.attributes_for(:user_message, message: "some message")
+      end
       it "should get correct params to create a new user_message" do
         post :create, user_message: @valid_user_message_attr
         assigns(:user_message).message.should == "some message"
@@ -43,6 +42,9 @@ describe UserMessagesController do
     end
 
     context "with invalid data" do
+      before(:each) do
+        @invalid_user_message_attr = FactoryGirl.attributes_for(:invalid_user_message)
+      end
       it "should redirect to template new to correct the data" do 
         post :create, invalid_user_message: @invalid_user_message_attr
         assigns(:invalid_user_message)
@@ -98,25 +100,25 @@ describe UserMessagesController do
   end
 
 
-   describe "on POST 'update'" do
+   describe "on PUT 'update'" do
     before(:each) do
       @user_message = FactoryGirl.create(:user_message)
     end
 
     it "should exist the user_message to edit" do 
-      post :update, id:@user_message 
+      put :update, id:@user_message 
       assigns(:user_message).should_not be_nil
     end
 
     it "should raise a error when user_message to update doesn't exist" do 
       expect{
-        post :update, id: 999
+        put :update, id: 999
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return the upated user_message" do 
       @user_message.message = "new message"
-      post :update, id:@user_message 
+      put :update, id:@user_message 
       assigns(:user_message).should == @user_message
     end
   end
