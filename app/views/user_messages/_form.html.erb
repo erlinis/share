@@ -1,8 +1,8 @@
-<%= form_for @user_message, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @user_message, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
   
 <% if @user_message.errors.any? %>
   <div id="error_explanation">
-    <h2>Oops something goes wrong: <%= pluralize(@user_message.errors.count, "error") %></h2>
+    <h2>Oops something goes wrong:  <%= pluralize(@user_message.errors.count, "error") %></h2>
     <ul>
     <% @user_message.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
@@ -17,6 +17,20 @@
       <%= f.text_field :message, :class => 'text_field' %>
     </div>
   </div>
+
+  <div class="control-group">
+    <%= f.label :image, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :image %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :remote_image_url, " or image from URL ", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :remote_image_url %>
+    </div>
+  </div>
+
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

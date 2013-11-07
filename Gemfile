@@ -5,11 +5,16 @@ gem 'rails', '3.2.15'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+# Gem used for connecto to postgresql
 gem 'pg'
 
+# Gems used to add bootstrap functionality
 gem "therubyracer"
 gem "less-rails" 
 gem "twitter-bootstrap-rails"
+
+# Gem used for upload image
+gem 'carrierwave'
 
 # Gems used only for assets and not required
 # in production environments by default.

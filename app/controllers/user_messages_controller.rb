@@ -10,7 +10,6 @@ class UserMessagesController < ApplicationController
 
   def create
     @user_message = UserMessage.new(params[:user_message])
-    
     if @user_message.save
       flash[:notice] = 'Great, we will spread yours words!'
       redirect_to action: :index
