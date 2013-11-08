@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :name, :profile_picture
 
+  validates :name, presence: true
+
   # Relationships
   has_many :user_message
 end

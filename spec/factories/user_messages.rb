@@ -4,6 +4,7 @@ FactoryGirl.define do
   sequence(:random_message) {|n| LoremIpsum.generate }
 
   factory :user_message do
+    association :user
     message :random_message
   end
 

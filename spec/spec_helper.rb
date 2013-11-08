@@ -39,4 +39,31 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+
+  if defined?(CarrierWave)
+    CarrierWave::Uploader::Base.descendants.each do |klass|
+      next if klass.anonymous?
+      klass.class_eval do
+        def cache_dir
+          "#{Rails.root}/spec/fixtures/uploads/tmp"
+        end 
+                 
+        def store_dir
+          "#{Rails.root}/spec/fixtures/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+        end 
+      end 
+    end 
+  end
+
+# Delete directory in test enviroments images 
+=begin
+  config.after(:all) do
+    if Rails.env.test? 
+      FileUtils.rm_rf(Dir["#{Rails.root}/spec/fixtures/uploads"])
+    end 
+  end 
+=end
+
+
 end
