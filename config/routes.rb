@@ -1,5 +1,7 @@
 Share::Application.routes.draw do
-  
+
+  devise_for :users
+
   resources :user_messages
  
   # The priority is based upon order of creation:
