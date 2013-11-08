@@ -116,10 +116,16 @@ describe UserMessagesController do
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    it "should return the upated user_message" do 
+    it "should return the updated user_message" do 
       @user_message.message = "new message"
       put :update, id:@user_message 
       assigns(:user_message).should == @user_message
+    end
+
+    it "should return a flash notice to notify the successful action" do 
+      @user_message.message = "new message"
+      put :update, id:@user_message 
+      flash[:notice].should eq("Message updated!")
     end
   end
 
@@ -138,6 +144,12 @@ describe UserMessagesController do
       expect{
         delete :destroy, id: 999
       }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it "should return a flash notice to notify the successful destroy" do 
+      @user_message.message = "new message"
+      put :destroy, id:@user_message 
+      flash[:notice].should eq('Message destroyed!')
     end
 
   end
