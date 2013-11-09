@@ -1,7 +1,9 @@
 class UserMessagesController < ApplicationController
   
+  before_filter :authenticate_user!
+  
   def index
-    @user_messages = UserMessage.all
+    @user_messages = UserMessage.where(user_id: current_user.id) 
   end
 
   def new
@@ -10,6 +12,7 @@ class UserMessagesController < ApplicationController
 
   def create
     @user_message = UserMessage.new(params[:user_message])
+    @user_message.user = current_user
     if @user_message.save
       flash[:notice] = 'Great, we will spread yours words!'
       redirect_to action: :index
@@ -39,10 +42,14 @@ class UserMessagesController < ApplicationController
 
   def destroy
     @user_message = UserMessage.find(params[:id])
+    @user_message.remove_image = true
+    @user_message.save
+
     if @user_message.destroy
       flash[:notice] = 'Message destroyed!'
       redirect_to action: :index
     end
   end
+
 
 end
