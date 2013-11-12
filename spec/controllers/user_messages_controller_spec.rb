@@ -211,7 +211,7 @@ describe UserMessagesController do
       end 
 
       context "when messages don't belongs to current user " do
-         before(:each) do
+        before(:each) do
           @user_message_any_user = FactoryGirl.create(:user_message)
         end
         it "should responde with 404 error because not found the message" do
