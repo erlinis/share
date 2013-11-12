@@ -1,9 +1,9 @@
 class UserMessagesController < ApplicationController
   
   before_filter :authenticate_user!
-  
+ 
   def index
-    @user_messages = UserMessage.where(user_id: current_user.id) 
+    @user_messages = current_user.user_messages
   end
 
   def new
@@ -23,17 +23,17 @@ class UserMessagesController < ApplicationController
   end
 
   def show
-     @user_message = UserMessage.find(params[:id])
+    @user_message = current_user.user_messages.find(params[:id])
   end
 
   def edit
-     @user_message = UserMessage.find(params[:id])
+    @user_message = current_user.user_messages.find(params[:id])
   end
 
   def update
-    @user_message = UserMessage.find(params[:id])
+    @user_message = current_user.user_messages.find(params[:id])
     if @user_message.update_attributes(params[:user_message])
-       flash[:notice] = 'Message updated!'
+      flash[:notice] = 'Message updated!'
       redirect_to @user_message
     else
       render :action => :edit
@@ -41,12 +41,14 @@ class UserMessagesController < ApplicationController
   end
 
   def destroy
-    @user_message = UserMessage.find(params[:id])
+    @user_message = current_user.user_messages.find(params[:id])
     
     if @user_message.destroy
       flash[:notice] = 'Message destroyed!'
       redirect_to action: :index
     end
   end
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
 end

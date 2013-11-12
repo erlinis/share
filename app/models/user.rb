@@ -11,5 +11,5 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   # Relationships
-  has_many :user_message
+  has_many :user_messages
 end
