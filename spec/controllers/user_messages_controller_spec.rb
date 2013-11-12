@@ -223,13 +223,11 @@ describe UserMessagesController do
         }.to raise_error(Errno::ENOENT)
       end
 
-      # TODO: delete the empty dir when the image is deleted
       it "should delete the directory image when the user_message is destroyed" do
         @user_message_with_image = FactoryGirl.create(:user_message_with_image)
         expect{
           delete :destroy, id: @user_message_with_image
           dir_path = "/spec/fixtures/uploads/user_message/image/#{@user_message_with_image.id}/"
-          # puts "dir_path #{dir_path}"
           Dir.chdir(File.join(Rails.root, dir_path))
         }.to raise_error(Errno::ENOENT)
       end

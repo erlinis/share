@@ -42,14 +42,11 @@ class UserMessagesController < ApplicationController
 
   def destroy
     @user_message = UserMessage.find(params[:id])
-    @user_message.remove_image = true
-    @user_message.save
-
+    
     if @user_message.destroy
       flash[:notice] = 'Message destroyed!'
       redirect_to action: :index
     end
   end
-
 
 end

@@ -52,22 +52,15 @@ RSpec.configure do |config|
         def cache_dir
           "#{Rails.root}/spec/fixtures/uploads/tmp"
         end 
-                 
-        def store_dir
-          "#{Rails.root}/spec/fixtures/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-        end 
       end 
     end 
   end
 
-# Delete directory in test enviroments images 
-=begin
+  # Delete tmp directory of images in test enviroments  
   config.after(:all) do
     if Rails.env.test? 
       FileUtils.rm_rf(Dir["#{Rails.root}/spec/fixtures/uploads"])
-    end 
-  end 
-=end
-
+    end
+  end
 
 end
