@@ -6,9 +6,9 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: share_development
+  database: er_share_development
 
 test:
   <<: *defaults
   min_messages: warning #magic sauce
-  database: share_test
+  database: er_share_test
