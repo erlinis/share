@@ -14,22 +14,6 @@
 
     <%= stylesheet_link_tag "application", :media => "all" %>
 
-    <!-- For third-generation iPad with high-resolution Retina display: -->
-    <!-- Size should be 144 x 144 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
-
-    <!-- For iPhone with high-resolution Retina display: -->
-    <!-- Size should be 114 x 114 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
-
-    <!-- For first- and second-generation iPad: -->
-    <!-- Size should be 72 x 72 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
-
-    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-    <!-- Size should be 57 x 57 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
-
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
@@ -38,8 +22,9 @@
   </head>
 
   <body>
-
-    <div class="navbar navbar-default navbar-fixed-top">
+    <!-- Navbar - top
+      ================================================== -->
+    <div class="navbar navbar-default navbar-fluid-top">
       <div class="container">
         <div class="navbar-header">
           <a href="../" class="navbar-brand">Share it!</a>
@@ -57,48 +42,53 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li>
-              <div id="user_nav">
-                <% if user_signed_in? %>
-                  Signed in as <%= current_user.email %>. Not you?
-                  <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-                <% else %>
-                  <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-                <% end %>
-              </div>
-            </li>
+            <% if user_signed_in? %>
+                <li> <%= link_to "Sign out", destroy_user_session_path, :method => :delete %> </li>
+              <% end %>
+              <% if !user_signed_in? %>
+                 <li> <%= link_to "Sign up", new_user_registration_path %> </li>
+                 <li> <%= link_to "Sign in", new_user_session_path %> </li>
+              <% end %>
           </ul>
         </div>
       </div>
-
-     
-
     </div>
 
 
     <div class="container">
-
-      <div class="page-header" id="banner">
-        <div class="row">
-          <div class="col-lg-6">
-            <h1>Share it!</h1>
-            <p class="lead">Spread your words </p>
-          </div>
-        </div>
-      </div>
-
-      <% if flash[:error] -%>
-        <p class='error'><%=h flash[:error] %></p>
-      <% end -%>
+    
+      <!-- Flash messages 
+        ================================================== -->
       <% if flash[:notice] -%>
-        <p class='notice'><%=h flash[:notice] %></p>
-      <% end -%>
+        <div class="alert alert-dismissable alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <p class='notice'><%=h flash[:notice] %></p>
+       </div>
+     <% end %>
+
+     <% if flash[:error] -%>
+        <div class="alert alert-dismissable alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <p class='notice'><%=h flash[:error] %></p>
+       </div>
+     <% end -%>
 
       <%= yield %>
+      
+      <!-- Footer 
+        ================================================== -->
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>
+              Made by <a href="http://erlinisquintana.me">Erlinis Quintana</a>. Contact her at <a href="mailto:erlinis.quintana@koombea.com">erlinis.quintana@koombea.com</a>.
+            </p>
+            <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.</p>
+          </div>
+        </div>
+      </footer>
 
     </div>
-
-
   </body>
 
 </html>
