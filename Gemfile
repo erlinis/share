@@ -11,7 +11,7 @@ gem 'pg'
 # Gems used to add bootstrap functionality
 gem "therubyracer"
 gem "less-rails" 
-gem "twitter-bootstrap-rails"
+
 
 # Used for upload images
 gem 'carrierwave'
@@ -29,6 +29,8 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  gem "twitter-bootstrap-rails"
 end
 
 
