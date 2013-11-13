@@ -4,13 +4,13 @@
   <%= devise_error_messages! %>
 
   <div><%= f.label :name %><br />
-  <%= f.text_field :name, :autofocus => true %></div>
+  <%= f.text_field :name %></div>
 
   <div><%= f.label :profile_picture %><br />
-  <%= f.file_field  :profile_picture%></div>
+  <%= f.file_field  :profile_picture %></div>
 
   <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <%= f.email_field :email %></div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
