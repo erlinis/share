@@ -31,13 +31,14 @@ describe UserMessage do
     user_message.valid?.should == true
   end
 
-  # TODO: fix the bug on GUI, when it is a image with not allowed extension
-  it "should not create a user message file with not allowed ext" do
-    user_message = FactoryGirl.create(:user_message_with_image_not_allowed_ext) 
-    user_message.valid? 
 
-    puts user_message.errors.inspect
-    user_message.valid?.should == true
+  it "should not create a user message when a file has a not allowed ext" do
+    pending("test pass but there is a bug on GUI/controller, when it is a image with not allowed extension isnt doesnt raise any error ") do
+      user_message = FactoryGirl.create(:user_message_with_image_not_allowed_ext) 
+      user_message.valid? 
+      #puts user_message.errors.inspect
+      user_message.valid?.should == false
+    end
   end
 
   it "should not create message without user" do
