@@ -14,12 +14,6 @@ class UserMessage < ActiveRecord::Base
   before_destroy :remove_image
   after_destroy :remove_id_directory
 
-  private
-  def remove_image
-    self.remove_image = true
-    self.save
-  end
-
   def remove_id_directory
     FileUtils.remove_dir("#{Rails.root}/public/#{ImageUploader.store_dir}/user_message/image/#{self.id}", :force => true)
   end

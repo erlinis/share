@@ -52,20 +52,25 @@ describe UserMessagesController do
 
     describe "GET 'index'" do
       it "returns http success" do
-        get 'index'
+        get :index
         response.should be_success
+      end
+
+      it "should render index page" do
+        get :index
+        response.should render_template :index
       end
 
       it "should returns user_messages created" do
         user_message = FactoryGirl.create(:user_message, user: subject.current_user)
-        get 'index'
+        get :index
         expect(assigns(:user_messages)).to eq([user_message])
       end
 
       it "should returns only the user_messages from the current user " do
         user_message = FactoryGirl.create(:user_message, user: subject.current_user)
         user_message2 = FactoryGirl.create(:user_message, user: subject.current_user, message:"some text")
-        get 'index'
+        get :index
         users_ids = assigns(:user_messages).collect{ |um| um.user.id }
         expect(users_ids).to eq([subject.current_user.id, subject.current_user.id])
       end
@@ -73,12 +78,23 @@ describe UserMessagesController do
       it "should returns only the user_messages from the current user " do
         user_message = FactoryGirl.create(:user_message, user: subject.current_user)
         user_message_other_user = FactoryGirl.create(:user_message)
-        get 'index'
+        get :index
         users_ids = assigns(:user_messages).collect{ |um| um.user.id }
         expect(users_ids).to eq([subject.current_user.id])
       end
     end
 
+    describe "get GET 'new'" do
+      it "should render new page" do
+        get :new
+        response.should render_template :new
+      end
+
+       it "should return a new instance of user_message" do
+        get :new
+        assigns(:user_message).instance_of?(UserMessage).should == true
+      end
+    end
 
     describe "on POST 'create'" do
       context "with valid data" do
@@ -102,6 +118,11 @@ describe UserMessagesController do
           assigns(:user_message)
           flash[:notice].should == 'Great, we will spread yours words!'
         end
+
+        it "should redirect to index page after a successful creation " do
+          post :create, user_message: @valid_user_message_attr
+          response.should redirect_to '/user_messages'
+        end
       end
 
       context "with invalid data" do
@@ -121,7 +142,7 @@ describe UserMessagesController do
         end
       end
     end
-  
+
     describe "on GET 'show'" do
       context "when messages belongs to current user " do
         before(:each) do
@@ -135,6 +156,10 @@ describe UserMessagesController do
 
         it "should find the user_message to show" do 
           assigns(:user_message).should == @user_message
+        end
+
+        it "should render show page" do
+          response.should render_template :show
         end
       end
 
@@ -164,6 +189,10 @@ describe UserMessagesController do
 
         it "should find the user_message to edit" do
           assigns(:user_message).should == @user_message
+        end
+
+        it "should render edit page" do
+          response.should render_template :edit
         end
       end
 
@@ -208,6 +237,21 @@ describe UserMessagesController do
         it "should return a flash notice to notify the successful action" do 
           flash[:notice].should eq("Message updated!")
         end
+
+        it "should redirect to show page after update" do
+          response.should  redirect_to "/user_messages/#{@user_message.id}"
+        end
+
+        context "with invalid data" do
+          before(:each) do
+            @invalid_user_message = FactoryGirl.create(:user_message)
+          end
+
+          it "should redirect to template edit to correct the data" do 
+             put :update, id:@user_message, user_message: FactoryGirl.attributes_for(:user_message, message: nil) 
+             response.should render_template :edit
+          end
+        end
       end 
 
       context "when messages don't belongs to current user " do
@@ -246,25 +290,9 @@ describe UserMessagesController do
           flash[:notice].should eq('Message destroyed!')
         end
 
-        context "when messages to be destroyed have an image" do
-          before(:each) do
-            @user_message_with_image = FactoryGirl.create(:user_message_with_image,  user: subject.current_user)
-            delete :destroy, id:@user_message_with_image 
-          end
-
-          it "should delete the image when the user_message is destroyed" do
-            expect{
-              imagen_path = "/spec/fixtures/uploads/#{@user_message_with_image.image}"
-              File.open(File.join(Rails.root, imagen_path))
-            }.to raise_error(Errno::ENOENT)
-          end
-
-          it "should delete the directory image when the user_message is destroyed" do
-            expect{
-              dir_path = "/spec/fixtures/uploads/user_message/image/#{@user_message_with_image.id}/"
-              Dir.chdir(File.join(Rails.root, dir_path))
-            }.to raise_error(Errno::ENOENT)
-          end
+        it "should redirect to index page after a successful destroy " do
+          delete :destroy, id: @user_message 
+          response.should redirect_to '/user_messages'
         end
       end
 

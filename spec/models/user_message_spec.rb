@@ -31,7 +31,6 @@ describe UserMessage do
     user_message.valid?.should == true
   end
 
-
   it "should not create a user message when a file has a not allowed ext" do
     pending("test pass but there is a bug on GUI/controller, when it is a image with not allowed extension isnt doesnt raise any error ") do
       user_message = FactoryGirl.create(:user_message_with_image_not_allowed_ext) 
@@ -41,9 +40,31 @@ describe UserMessage do
     end
   end
 
+  context "when a messages with image is destroyed" do
+    before(:each) do
+      @user_message_with_image = FactoryGirl.create(:user_message_with_image)
+      @user_message_with_image.destroy
+    end
+
+    it "should delete the image when the user_message is destroyed" do
+      expect{
+        imagen_path = "/spec/fixtures/uploads/#{@user_message_with_image.image}"
+        File.open(File.join(Rails.root, imagen_path))
+      }.to raise_error(Errno::ENOENT)
+    end
+
+    it "should delete the directory image when the user_message is destroyed" do
+      expect{
+        dir_path = "/spec/fixtures/uploads/user_message/image/#{@user_message_with_image.id}/"
+        Dir.chdir(File.join(Rails.root, dir_path))
+      }.to raise_error(Errno::ENOENT)
+    end
+  end
+
   it "should not create message without user" do
     user_message = FactoryGirl.build(:user_message, user: nil)
     user_message.valid?.should == false
   end
+
 
 end
