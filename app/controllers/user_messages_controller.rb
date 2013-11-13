@@ -49,6 +49,4 @@ class UserMessagesController < ApplicationController
     end
   end
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-
 end

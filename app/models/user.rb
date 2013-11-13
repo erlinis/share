@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
 
   # Relationships
   has_many :user_messages
+
 end
