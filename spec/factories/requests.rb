@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :request do
-    sender_id 1
     receiver_id 1
-    is_accepted false
+    is_accepted nil
+    association :user
   end
 end
