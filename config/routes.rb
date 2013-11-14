@@ -1,11 +1,15 @@
 Share::Application.routes.draw do
 
-  devise_for :users, :controllers => { :registrations => 'users/registrations' }
+  get "users/index"
+
+  devise_for :users
 
   resources :user_messages
+  resources :users, :only => [:index, :show]
 
   get "requests/create"
   get "requests/index"
+  post "requests/create"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
