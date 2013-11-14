@@ -1,7 +1,7 @@
 class UserMessagesController < ApplicationController
-  
+
   before_filter :authenticate_user!
- 
+
   def index
     @user_messages = current_user.user_messages
   end
@@ -42,7 +42,7 @@ class UserMessagesController < ApplicationController
 
   def destroy
     @user_message = current_user.user_messages.find(params[:id])
-    
+
     if @user_message.destroy
       flash[:notice] = 'Message destroyed!'
       redirect_to action: :index
