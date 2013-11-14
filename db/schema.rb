@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(:version => 20131113203050) do
 
   create_table "requests", :force => true do |t|
-    t.integer  "sender_id"
+    t.integer  "user_id"
     t.integer  "receiver_id"
-    t.boolean  "is_accepted", :default => true
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "is_accepted"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "user_messages", :force => true do |t|
