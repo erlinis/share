@@ -1,6 +1,8 @@
 class Request < ActiveRecord::Base
   attr_accessible :is_accepted, :receiver_id
+
   belongs_to :user
+  belongs_to :receiver, :class_name => "User"
 
 	validates :receiver_id, presence: true
 	validate :check_pending_request

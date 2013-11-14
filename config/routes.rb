@@ -7,9 +7,7 @@ Share::Application.routes.draw do
   resources :user_messages
   resources :users, :only => [:index, :show]
 
-  get "requests/create"
-  get "requests/index"
-  post "requests/create"
+  resources :requests, :only => [:index, :create]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,2 +1,30 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:profile_picture) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.id, user_path(user) %></td>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td>
+        <td><%= user.profile_picture %></td>
+        <td><%=l user.created_at %></td>
+        <th>
+          <%= link_to "Send Friend Request", requests_path(:friend_id => user), :method => :post %>
+        </th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
