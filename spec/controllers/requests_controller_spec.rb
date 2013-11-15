@@ -4,11 +4,8 @@ describe RequestsController, "user authenticated" do
 	login_user
 	render_views
 	context "doing GET on #index" do
-		before :each do
-			get :index
-		end
-
 		it "is logged in" do
+			get :index
 			subject.current_user.should_not be_nil
 		end
 
@@ -17,7 +14,7 @@ describe RequestsController, "user authenticated" do
 			user2 = FactoryGirl.create(:user)
 			request = FactoryGirl.create(:request, user: subject.current_user, receiver_id: user.id)
 			request2 = FactoryGirl.create(:request, user: subject.current_user, receiver_id: user2.id)
-
+			get :index
 			ids = assigns(:requests).collect{ | request | request.user.id }
 			expect(ids).to eq( [subject.current_user.id,  subject.current_user.id] )
 		end
