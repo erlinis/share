@@ -13,7 +13,7 @@ class Request < ActiveRecord::Base
 
   def check_pending_request
   	request = Request.where("user_id = :user and receiver_id = :receiver", user: user , receiver: self.receiver_id).first
-  	if request.present? && !request.is_accepted
+  	if request.present? && request.is_accepted == nil && request.id != self.id
   		errors.add(:receiver_id, "You have a Request Pending for approval right now for this user")
   	end
   end
