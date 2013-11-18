@@ -22,7 +22,7 @@
         <td><%= user.profile_picture %></td>
         <td><%=l user.created_at %></td>
         <th>
-          <%= link_to "Send Friend Request", requests_path(:friend_id => user), :method => :post %>
+          <%= link_to "Send Friend Request", appeals_path(:friend_id => user), :method => :post %>
         </th>
       </tr>
     <% end %>
