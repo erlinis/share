@@ -1,4 +1,4 @@
-<%- model_class = Request -%>
+<%- model_class = Appeal -%>
 <div class="page-header">
   <h1>Send Requests</h1>
 </div>
@@ -9,9 +9,9 @@
     </tr>
   </thead>
   <tbody>
-    <% @requests.each do |request| %>
+    <% @appeals.each do |appeal| %>
       <tr>
-        <td><%= request.receiver.name %></td>
+        <td><%= appeal.receiver.name %></td>
       </tr>
     <% end %>
   </tbody>

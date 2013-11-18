@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113203050) do
+ActiveRecord::Schema.define(:version => 20131118152535) do
 
-  create_table "requests", :force => true do |t|
+  create_table "appeals", :force => true do |t|
     t.integer  "user_id"
     t.integer  "receiver_id"
     t.boolean  "is_accepted"

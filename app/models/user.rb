@@ -14,6 +14,6 @@ class User < ActiveRecord::Base
 
   # Relationships
   has_many :user_messages
-  has_many :requests
-  has_many :receivers, :through => :requests
+  has_many :appeals
+  has_many :receivers, :through => :appeals
 end

@@ -6,8 +6,9 @@ Share::Application.routes.draw do
 
   resources :user_messages
   resources :users, :only => [:index, :show]
-  resources :requests, :only => [:index, :create]
-  resources :pending_requests, :only => [:index, :update]
+  resources :appeals, :only => [:index, :create]
+  resources :pending_appeals, :only => [:index, :update]
+  resources :friends, :only => [:index]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
