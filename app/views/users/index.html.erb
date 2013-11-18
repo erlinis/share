@@ -1,30 +1,18 @@
 <%- model_class = User -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+<div class="row">
+  <div class="page-header">
+    <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  </div>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:profile_picture) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th>Options</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="row">
+  <div class="col-lg-7">
     <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to user.id, user_path(user) %></td>
-        <td><%= user.email %></td>
-        <td><%= user.name %></td>
-        <td><%= user.profile_picture %></td>
-        <td><%=l user.created_at %></td>
-        <th>
-          <%= link_to "Send Friend Request", appeals_path(:friend_id => user), :method => :post %>
-        </th>
-      </tr>
+      <div class="user_add_friend">
+        <%= image_tag user.profile_picture_url if user.profile_picture_url %>
+        <p><%= link_to user.name, user_path(user) %> <span>(<%= user.email %>)</span>
+        Joined us on: <%= user.created_at.strftime("%d/%m/%Y") %></p>
+        <%= link_to "Send Friend Request", appeals_path(:friend_id => user), :method => :post %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

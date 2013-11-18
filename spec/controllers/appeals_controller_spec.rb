@@ -9,7 +9,7 @@ describe AppealsController, "user authenticated" do
 			subject.current_user.should_not be_nil
 		end
 
-		it "returns a list of my pending requests" do
+		it "returns a list of my send requests not accepted/dinied" do
 			user = FactoryGirl.create(:user)
 			user2 = FactoryGirl.create(:user)
 			request = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: user.id)
@@ -17,6 +17,15 @@ describe AppealsController, "user authenticated" do
 			get :index
 			ids = assigns(:appeals).collect{ | request | request.user.id }
 			expect(ids).to eq( [subject.current_user.id,  subject.current_user.id] )
+		end
+
+		it "returns an empty list if all my requests are accepted/denied" do
+			user = FactoryGirl.create(:user)
+			user2 = FactoryGirl.create(:user)
+			request = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: user.id, is_accepted: true)
+			request2 = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: user2.id, is_accepted: true)
+			get :index
+			assigns(:appeals).should be_empty
 		end
 	end
 

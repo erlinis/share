@@ -14,3 +14,10 @@
  *= require_self
 
  */
+.user_add_friend img{
+	display: block;
+	float: left;
+}
+.user_add_friend{
+	margin-bottom: 1.5em;
+}

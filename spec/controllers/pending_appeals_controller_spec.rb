@@ -17,6 +17,13 @@ describe PendingAppealsController do
 				ids = assigns(:appeals).collect{ | appeal | appeal.receiver.id }
 				expect(ids).to eq( [subject.current_user.id,  subject.current_user.id] )
 			end
+
+			it "returns a empty list my pending appeals if accepted/denied all" do
+				appeal1 = FactoryGirl.create(:appeal, receiver_id: subject.current_user.id, is_accepted: true)
+				appeal2 = FactoryGirl.create(:appeal, receiver_id: subject.current_user.id, is_accepted: true)
+				get :index
+				assigns(:appeals).should be_empty
+			end
 		end
 
 		context "doing PUT to update" do
