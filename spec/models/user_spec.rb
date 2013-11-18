@@ -5,8 +5,8 @@ describe User do
   it { should validate_presence_of(:password) }
   it { should validate_presence_of(:name) }
   it { should_not validate_presence_of(:profile_picture) }
-  it { should have_many :requests }
-  it { should have_many(:receivers).through(:requests) }
+  it { should have_many :appeals }
+  it { should have_many(:receivers).through(:appeals) }
 
   it "should avoid two users with the same email" do
     user = FactoryGirl.create(:user, email: "foo@org.com")

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RequestsController, "user authenticated" do
+describe AppealsController, "user authenticated" do
 	login_user
 	render_views
 	context "doing GET on #index" do
@@ -12,10 +12,10 @@ describe RequestsController, "user authenticated" do
 		it "returns a list of my pending requests" do
 			user = FactoryGirl.create(:user)
 			user2 = FactoryGirl.create(:user)
-			request = FactoryGirl.create(:request, user: subject.current_user, receiver_id: user.id)
-			request2 = FactoryGirl.create(:request, user: subject.current_user, receiver_id: user2.id)
+			request = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: user.id)
+			request2 = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: user2.id)
 			get :index
-			ids = assigns(:requests).collect{ | request | request.user.id }
+			ids = assigns(:appeals).collect{ | request | request.user.id }
 			expect(ids).to eq( [subject.current_user.id,  subject.current_user.id] )
 		end
 	end
@@ -33,7 +33,7 @@ describe RequestsController, "user authenticated" do
 		it "creates a new request" do
 			expect{
 				post :create, friend_id: @user.id
-			}.to change(Request, :count).by(1)
+			}.to change(Appeal, :count).by(1)
 		end
 
 		it "redirects to users_path" do
@@ -46,7 +46,7 @@ describe RequestsController, "user authenticated" do
 		it "does not create a new request" do
 			expect{
 				post :create, friend_id: 0
-			}.not_to change(Request, :count).by(1)
+			}.not_to change(Appeal, :count).by(1)
 		end
 
 		it "redirects to users_path" do
@@ -56,7 +56,7 @@ describe RequestsController, "user authenticated" do
 	end
 end
 
-describe RequestsController, "user no authenticated" do
+describe AppealsController, "user no authenticated" do
 	render_views
 
 	before :each do

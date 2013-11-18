@@ -1,14 +1,14 @@
-class RequestsController < ApplicationController
+class AppealsController < ApplicationController
 
 	before_filter :authenticate_user!
 
 	def index
-		@requests = current_user.requests
+		@appeals = current_user.appeals
 	end
 
 	def create
-		@request = current_user.requests.build(:receiver_id => params[:friend_id])
-		if @request.save
+		@appeal = current_user.appeals.build(:receiver_id => params[:friend_id])
+		if @appeal.save
 			flash[:notice] = 'Successfully Saved'
 		else
 			flash[:error] = "Error"
