@@ -16,7 +16,7 @@
               			<% end %>
 					</td>
 					<td>
-						<%= form_for appeal, :url => pending_appeals_path(appeal) do |f| %>
+						<%= form_for appeal, :url => pending_appeal_path(appeal) do |f| %>
                 		<%= f.hidden_field :is_accepted, value: false %>
                 		<%= f.submit "Deny", class: "btn btn-danger" %>
               			<% end %>

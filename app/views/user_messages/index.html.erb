@@ -1,36 +1,71 @@
 <%- model_class = UserMessage -%>
 
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>Timeline</h1>
 </div>
 
-<ul class="list-group">
-  <% @user_messages.each do |user_message| %>
-    <li class="list-group-item">
-      <span class="badge"><%= time_ago_in_words(user_message.created_at) %></span>
-      <p> 
-      <%= link_to user_message.message, user_message_path(user_message) %> </p>
-      <p>
-        <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_user_message_path(user_message), :class => 'btn btn-xs btn-primary' %>
-        <%= link_to t('.destroy ', :default => t("helpers.links.destroy")),
-                user_message_path(user_message),
-                :method => :delete,
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                :class => 'btn btn-xs btn-danger' %>
 
-      
-      </p>
-      <% if user_message.image? %>
-        <span class="label label-info">img</span>
+
+<div class="panel panel-default">
+  
+  <div class="panel-body">
+    <p>
+      <%= link_to  new_user_message_path, :class => 'btn btn-sm btn-primary ' do%>
+       Share something &nbsp; <i class="fa fa-pencil"> </i>
       <% end %>
-    </li>
-  <% end %>
-</ul>
+    </p>
+    <% if @user_messages %>
+      <% @user_messages.each do |user_message| %>
+        <div class="well well-sm ">
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-          new_user_message_path,
-          :class => 'btn btn-sm btn-primary ' %>
+          <p> 
+            <span class="pull-left" style="padding: 6px;">
+              <%= image_tag avatar_url(user_message.user) %>
+            </span>
+            <span class="badge pull-right">
+              <%= time_ago_in_words(user_message.created_at) %>
+             </span>
+            <div>
+              <%= link_to  user_path(user_message.user), :method => :get , :class => "user_name" do %> 
+                <%= user_message.user.name %> 
+              <% end %>
+              <br/>
+              <%= user_message.user.email %>
+            </div> 
+          </p>
+          
+          <p>
+            <%= auto_link(user_message.message, :html => { :target => '_blank' }) %>
+            <%= image_tag user_message.image_url(:thumb).to_s if user_message.image_url %> 
+          </p>
+        
+          <div class="options">
+            <%= link_to user_message_path(user_message) , :class => "btn btn-primary btn-xs" do %>
+                <i class="fa fa-eye "> Details </i>
+            <% end %>
+            &nbsp; &nbsp;
+            <%= link_to edit_user_message_path(user_message) , :class => "btn btn-primary btn-xs" do %>
+                <i class="fa fa-edit"> Edit </i>
+            <% end %>
+            &nbsp; &nbsp;
+            <%= link_to user_message_path(user_message),
+              :method => :delete,
+              :class => "btn btn-danger btn-xs" ,
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } do %>
+              <i class="fa fa-eraser"> Delete </i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="well well-sm">
+        <p>You don't have any message yet. Start writting something !</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
 
 
 

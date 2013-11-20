@@ -12,9 +12,14 @@ gem 'pg'
 gem "therubyracer"
 gem "less-rails" 
 
+# Font for icons
+gem "font-awesome-rails"
+
+gem "rails_autolink"
 
 # Used for upload images
 gem 'carrierwave'
+gem 'rmagick'
 
 # Used for authentication
 gem 'devise'

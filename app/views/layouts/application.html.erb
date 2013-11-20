@@ -24,6 +24,7 @@
 
   <body>
 
+     
     <!-- Navbar - top
       ================================================== -->
     <div class="navbar navbar-default navbar-fluid-top">
@@ -37,7 +38,7 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
-              <%= link_to 'See all messages', user_messages_path %>
+              <%= link_to 'All messages', user_messages_path %>
             </li>
             <li>
               <%= link_to 'New post', new_user_message_path %>
@@ -57,8 +58,15 @@
             </li>
             <% end %>
           </ul>
+
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
+              <li>
+                <%= link_to edit_user_registration_path, :method => :get do %>
+                   Edit Profile ( <%= current_user.name %> )
+                <% end %>
+              </li>
+              
                 <li> <%= link_to "Sign out", destroy_user_session_path, :method => :delete %> </li>
               <% end %>
               <% if !user_signed_in? %>

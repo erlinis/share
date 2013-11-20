@@ -19,8 +19,8 @@ class Appeal < ActiveRecord::Base
   end
 
   def self_appeal
-    if user == self.receiver_id
-      errors.add(:receiver_id, "You can send a request yo yourself")
+    if user == receiver
+      errors.add(:receiver_id, "You can't send a request to yourself")
     end
   end
 

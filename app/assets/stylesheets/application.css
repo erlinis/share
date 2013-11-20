@@ -8,12 +8,13 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require 'flatly/bootstrap.min'
- *= require 'bootswacth.min'
- *= require 'font-awesome'
+ *= require flatly/bootstrap.min
+ *= require bootswacth.min
+ *= require font-awesome
  *= require_self
-
  */
+
+
 .user_add_friend img{
 	display: block;
 	float: left;

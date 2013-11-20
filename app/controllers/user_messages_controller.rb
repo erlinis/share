@@ -5,7 +5,7 @@ class UserMessagesController < ApplicationController
   def index
     send_requests = Appeal.where("user_id = :user and is_accepted = true", user: current_user.id).map(&:receiver_id)
     received_requests = Appeal.where("receiver_id = :user and is_accepted = true", user: current_user.id).map(&:user_id)
-    @user_messages = UserMessage.where(:user_id => [send_requests + received_requests << current_user.id ])
+    @user_messages = UserMessage.where(:user_id => [send_requests + received_requests << current_user.id ]).order("created_at DESC")
   end
 
   def new
