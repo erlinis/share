@@ -14,6 +14,9 @@
  *= require_self
  */
 
+#message_container{
+  width: 950px;
+}
 
 .user_add_friend img{
 	display: block;

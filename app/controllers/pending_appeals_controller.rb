@@ -3,7 +3,8 @@ class PendingAppealsController < ApplicationController
 	before_filter :authenticate_user!
 
 	def index
-		@appeals = Appeal.where("receiver_id = :receiver and is_accepted IS NULL", receiver: current_user.id)
+		@appeals = Appeal.where("receiver_id = :receiver and is_accepted IS NULL", receiver: current_user.id) 
+		@appeals unless request.xhr?
 	end
 
 	def update

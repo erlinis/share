@@ -8,7 +8,7 @@
   <div class="col-lg-7">
     <% @users.each do |user| %>
       <div class="user_add_friend">
-        <%= image_tag user.profile_picture_url if user.profile_picture_url %>
+        <%= image_tag user.profile_picture_url(:thumb) if user.profile_picture_url %>
         <p><%= link_to user.name, user_path(user) %> <span>(<%= user.email %>)</span>
         Joined us on: <%= user.created_at.strftime("%d/%m/%Y") %></p>
         <%= link_to "Send Friend Request", appeals_path(:friend_id => user), :method => :post %>

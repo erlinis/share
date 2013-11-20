@@ -1,0 +1,30 @@
+<%= form_for @user_message, :remote => true, 
+:html => { :class => 'form-horizontal bs-example', :multipart => true } do |f| %>
+  <div id= "user_message_errors" style="display:none"></div>
+
+  <div class="control-group">
+    <%= f.label :message, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :message, :class => "text_area form-control", rows: 2, cols: 2 %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :remote_image_url, " Image from URL ", :class => 'control-label' %>
+    <div class="controls"> 
+      <%= f.text_field :remote_image_url, :class => "form-control input-sm"%> 
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :image, "or local image" , :class => 'control-label' %>
+    <div class="controls"> <%= f.file_field :image %> </div>
+  </div>
+
+  <br/>
+  <div class="form-actions">
+    <%= f.submit "Share it", :class => 'btn btn-primary btn-xs'%>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                user_messages_path, :class => 'btn btn-xs' %>
+  </div>
+<% end %>
+<br>

@@ -1,69 +1,28 @@
+
 <%- model_class = UserMessage -%>
 
 <div class="page-header">
   <h1>Timeline</h1>
 </div>
 
-
-
-<div class="panel panel-default">
-  
-  <div class="panel-body">
-    <p>
-      <%= link_to  new_user_message_path, :class => 'btn btn-sm btn-primary ' do%>
-       Share something &nbsp; <i class="fa fa-pencil"> </i>
-      <% end %>
-    </p>
-    <% if @user_messages %>
-      <% @user_messages.each do |user_message| %>
-        <div class="well well-sm ">
-
-          <p> 
-            <span class="pull-left" style="padding: 6px;">
-              <%= image_tag avatar_url(user_message.user) %>
-            </span>
-            <span class="badge pull-right">
-              <%= time_ago_in_words(user_message.created_at) %>
-             </span>
-            <div>
-              <%= link_to  user_path(user_message.user), :method => :get , :class => "user_name" do %> 
-                <%= user_message.user.name %> 
-              <% end %>
-              <br/>
-              <%= user_message.user.email %>
-            </div> 
-          </p>
-          
-          <p>
-            <%= auto_link(user_message.message, :html => { :target => '_blank' }) %>
-            <%= image_tag user_message.image_url(:thumb).to_s if user_message.image_url %> 
-          </p>
-        
-          <div class="options">
-            <%= link_to user_message_path(user_message) , :class => "btn btn-primary btn-xs" do %>
-                <i class="fa fa-eye "> Details </i>
-            <% end %>
-            &nbsp; &nbsp;
-            <%= link_to edit_user_message_path(user_message) , :class => "btn btn-primary btn-xs" do %>
-                <i class="fa fa-edit"> Edit </i>
-            <% end %>
-            &nbsp; &nbsp;
-            <%= link_to user_message_path(user_message),
-              :method => :delete,
-              :class => "btn btn-danger btn-xs" ,
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } do %>
-              <i class="fa fa-eraser"> Delete </i>
-            <% end %>
+  <div id="message_container" class="panel panel-default">
+    
+    <div class="panel-body">
+       <div id="user_message_form">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">New message</h3>
+            </div>
+            <div class="panel-body">
+              <%= render :partial => 'form_ajax' %>
+            </div>
           </div>
+       
         </div>
-      <% end %>
-    <% else %>
-      <div class="well well-sm">
-        <p>You don't have any message yet. Start writting something !</p>
-      </div>
-    <% end %>
+       <div id="user_messages_list"><%= render :partial => "user_messages" %></div>
+    </div>
+      
   </div>
-</div>
 
 
 

@@ -9,6 +9,8 @@ class Appeal < ActiveRecord::Base
   validate :self_appeal, :on => :create
   validate :user_exist
 
+  after_save :send_notification
+
   private
 
   def check_pending_appeal
@@ -29,6 +31,12 @@ class Appeal < ActiveRecord::Base
       user = User.find(self.receiver_id)
     rescue
       errors.add(:receiver_id, "This user doesn't exist")
+    end
+  end
+
+  def send_notification
+    if self.is_accepted
+      NewNotificationMailer.appeal_accepted(self.user, self.receiver).deliver
     end
   end
 
