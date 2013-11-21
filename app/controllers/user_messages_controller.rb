@@ -21,9 +21,11 @@ class UserMessagesController < ApplicationController
     @user_message = UserMessage.new(params[:user_message])
     @user_message.user = current_user
     if @user_message.save
-        user_messages = get_user_messages
-        redirect_to(action: :index, :notice => 'Great, we will spread yours words!') unless request.xhr?
+      user_messages = get_user_messages
+      flash[:notice] = 'Great, we will spread yours words!'
+      redirect_to(action: :index) unless request.xhr?
     else
+      flash[:error] = 'Hmm,it seems you forgot write something'
       render(:action => :new) unless request.xhr?
     end
 
@@ -61,7 +63,8 @@ class UserMessagesController < ApplicationController
     @user_message = current_user.user_messages.find(params[:id])
     if @user_message.destroy
         user_messages = get_user_messages
-        redirect_to(action: :index, :notice => 'Message destroyed!') unless request.xhr?
+        flash[:notice] = 'Message destroyed!'
+        redirect_to(action: :index) unless request.xhr?
    #     flash[:notice] = 'Message destroyed!'
    #     redirect_to action: :index
     end

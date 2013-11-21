@@ -1,8 +1,7 @@
 
 <%= form_for @user_message, :remote => true, 
 :html => { :class => 'form-horizontal bs-example', :multipart => true } do |f| %>
-    <div id= "user_message_errors" style="display:none"></div>
-
+  <div id= "user_message_errors" style="display:none"></div>
   <div class="well">
     <div class="control-group">
       <%= f.label :message, :class => 'control-label' %>
