@@ -9,12 +9,14 @@ describe UsersController, "user authenticated" do
 			subject.current_user.should_not be_nil
 		end
 
-		it "returns a list of registered users but me" do
+		it "returns a list of registered users but me and my friends" do
 			u = FactoryGirl.create(:user)
 			u2 = FactoryGirl.create(:user)
+			u3 = FactoryGirl.create(:user)
+			appeal = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: u3.id, is_accepted: true)
 			get :index
 			ids = assigns(:users).collect{ | user | user.id }
-			expect(ids).to eq([u.id, u2.id])
+			expect(ids).should include(u.id, u2.id)
 		end
 	end
 
