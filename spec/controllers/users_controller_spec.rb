@@ -16,7 +16,7 @@ describe UsersController, "user authenticated" do
 			appeal = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: u3.id, is_accepted: true)
 			get :index
 			ids = assigns(:users).collect{ | user | user.id }
-			expect(ids).should include(u.id, u2.id)
+			expect(ids).to include(u.id, u2.id)
 		end
 	end
 
