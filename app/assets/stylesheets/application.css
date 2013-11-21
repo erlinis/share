@@ -14,8 +14,12 @@
  *= require_self
  */
 
+.message_container{
+  width: 75%;
+}
+
 #message_container{
-  width: 950px;
+  width: 70%;
 }
 
 .user_add_friend img{

@@ -10,10 +10,10 @@ class PendingAppealsController < ApplicationController
 	def update
 		@appeal = Appeal.find(params[:id])
 		if @appeal.update_attributes(params[:appeal])
-			flash[:notice] = "New Friend Added"
+			appeals = Appeal.where("receiver_id = :receiver and is_accepted IS NULL", receiver: current_user.id) 
+			redirect_to(action: :index, :notice => "New Friend Added" ) unless request.xhr?
 		else
-			flash[:error] = @appeal.errors.full_messages.to_sentence
+			redirect_to(action: :index, :error => @appeal.errors.full_messages.to_sentence) unless request.xhr?
 		end
-		redirect_to action: :index
 	end
 end

@@ -24,49 +24,48 @@
 
   <body>
 
-     
-    <!-- Navbar - top
-      ================================================== -->
+     <!-- Navbar - top
+    ================================================== -->
     <div class="navbar navbar-default navbar-fluid-top">
       <div class="container">
         <div class="navbar-header">
           <a href="../" class="navbar-brand">Share it!</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" 
+          data-target="#navbar-main">
             <span class="icon-bar"></span>
           </button>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li>
-              <%= link_to 'All messages', user_messages_path %>
-            </li>
+            <li><%= link_to 'All messages', user_messages_path %></li>
             <% if user_signed_in? %>
-            <li>
-              <%= link_to 'Find Users', users_path %>
+            <li><%= link_to 'Find Users', users_path %></li>
+            <li><%= link_to 'My Friends', friends_path %></li>
+            <li><%= link_to 'Send Requests', appeals_path %></li>
+            <li class="dropdown open">
+              <%=link_to pending_appeals_path, remote: true, 
+              :class =>"dropdown-toggle",
+              :id =>"appeals", 'data-toggle'=>"dropdown" do -%>
+                <i class="fa fa-bell"> <span class="caret"></span> </i>
+              <% end -%>
+              <ul class="dropdown-menu" aria-labelledby="appeals" id="appeals_list" style="display:none;">
+                <li></li>
+              </ul>
             </li>
-            <li>
-              <%= link_to 'My Friends', friends_path %>
-            </li>
-            <li>
-              <%= link_to 'Send Requests', appeals_path %>
-            </li>
-            <li>
-              <%= link_to 'Pending Requests', pending_appeals_path, remote: true %>
-              <div id="appeals_list" style="display:none;"></div>
-            </li>
-            <% end %>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
+              <% if user_signed_in? %>
               <li>
                 <%= link_to edit_user_registration_path, :method => :get do %>
                    Edit Profile ( <%= current_user.name %> )
                 <% end %>
               </li>
-              
-                <li> <%= link_to "Sign out", destroy_user_session_path, :method => :delete %> </li>
               <% end %>
+              <li> 
+                <%= link_to "Sign out", destroy_user_session_path, :method => :delete %> 
+                <% end %>
+              </li>
               <% if !user_signed_in? %>
                  <li> <%= link_to "Sign up", new_user_registration_path %> </li>
                  <li> <%= link_to "Sign in", new_user_session_path %> </li>
@@ -77,7 +76,7 @@
     </div>
 
 
-    <div class="container">
+  <div class="container">
     
       <!-- Flash messages 
         ================================================== -->
@@ -90,12 +89,12 @@
        </div>
      <% end %>
 
-     <% if flash[:error] -%>
+     <% if flash[:error]%>
         <div class="alert alert-dismissable alert-danger">
           <button type="button" class="close" data-dismiss="alert">×</button>
           <p class='notice'><%=h flash[:error] %></p>
        </div>
-     <% end -%>
+     <% end%>
 
       <%= yield %>
       
@@ -112,8 +111,7 @@
         </div>
       </footer>
 
-    </div>
-  </body>
+  </div>
 
   </body>
 </html>
