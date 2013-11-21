@@ -52,6 +52,16 @@ describe PendingAppealsController do
 				put :update, id: @myappeal, appeal: FactoryGirl.attributes_for(:appeal, is_accepted: true)
 				response.should redirect_to pending_appeals_path
 			end
+
+			it "send a email if appeal was accepted" do
+				put :update, id: @myappeal, appeal: FactoryGirl.attributes_for(:appeal, is_accepted: true)
+				ActionMailer::Base.deliveries.last.to.should == [@myappeal.user.email]
+			end
+
+			it "not send a email if appeal was rejected" do
+				put :update, id: @myappeal, appeal: FactoryGirl.attributes_for(:appeal, is_accepted: false)
+				ActionMailer::Base.deliveries.last.to.should_not == [@myappeal.user.email]
+			end
 		end
 	end
 

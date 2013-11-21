@@ -31,7 +31,7 @@ describe AppealsController, "user authenticated" do
 
 	context "doing POST on create with a valid id" do
 		before :each do
-			@user = FactoryGirl.create(:user)
+			@user = FactoryGirl.create(:user, email: "notfriend@example.com")
 		end
 
 		it "is logged in" do
@@ -48,6 +48,11 @@ describe AppealsController, "user authenticated" do
 		it "redirects to users_path" do
 			post :create, friend_id: @user.id
 			response.should redirect_to users_path
+		end
+
+		it "send a email notification to the receiver user" do
+			post :create, friend_id: @user.id
+			ActionMailer::Base.deliveries.last.to.should == ["notfriend@example.com"]
 		end
 	end
 

@@ -1,9 +1,11 @@
+  <h5>Pending Requests</h5>
   <% if !@appeals.empty? -%>
     <table class="table table-bordered table-hover">
       <tbody>
       <% @appeals.each do | appeal | %>
         <tr>
-          <td><%= appeal.user.email %></td>
+          <td><%= image_tag avatar_url(appeal.user) %></td>
+          <td><%= appeal.user.name %> (<%= appeal.user.email %>)</td>
           <td>
             <%= form_for appeal, remote: true, :url => pending_appeal_path(appeal) do |f| %>
               <%= f.hidden_field :is_accepted, value: true %>
