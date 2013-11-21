@@ -39,19 +39,19 @@ Share::Application.configure do
   config.assets.debug = true
 
   # Mailer configuration
-  ActionMailer::Base.default :from => 'notifications@development-server.com'
+  # ActionMailer::Base.default :from => 'notifications@development-server.com'
   
-  config.action_mailer.default_url_options = { host: "shareit.com" }
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "shareit.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: "erlinis.quintana@koombea.com",  #ENV["GMAIL_USERNAME"],
-    password: "erlinis1129" #ENV["GMAIL_PASSWORD"]
-  }
+  # config.action_mailer.default_url_options = { host: "shareit.com" }
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: "smtp.gmail.com",
+  #   port: 587,
+  #   domain: "shareit.com",
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
+  #   user_name: "erlinis.quintana@koombea.com",  #ENV["GMAIL_USERNAME"],
+  #   password: "erlinis1129" #ENV["GMAIL_PASSWORD"]
+  # }
 
 end
