@@ -12,7 +12,7 @@ class AppealsController < ApplicationController
 			NewNotificationMailer.new_appeal(@appeal.user, @appeal.receiver).deliver
 			flash[:notice] = 'Successfully Saved'
 		else
-			flash[:error] = "We couldn't save your request. Please try again"
+			flash[:error] = @appeal.errors.full_messages.to_sentence
 		end
 		redirect_to users_path
 	end
