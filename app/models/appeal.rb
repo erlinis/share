@@ -8,7 +8,7 @@ class Appeal < ActiveRecord::Base
 	validate :check_pending_appeal, :on => :create
   validate :self_appeal, :on => :create
   validate :user_exist
-  validate :friends_already
+  validate :friends_already, :on => :create
 
   after_save :send_notification
 
