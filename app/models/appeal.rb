@@ -15,7 +15,7 @@ class Appeal < ActiveRecord::Base
   private
 
   def check_pending_appeal
-  	appeal = Appeal.where("user_id = :user and receiver_id = :receiver", user: user, receiver: self.receiver_id).first
+  	appeal = Appeal.where("user_id = :user and receiver_id = :receiver", user: user, receiver: self.receiver_id).last
   	if appeal.present? && appeal.is_accepted == nil
   		errors.add(:receiver_id, "You have a request Pending for approval right now for this user")
   	end
