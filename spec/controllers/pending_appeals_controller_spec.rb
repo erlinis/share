@@ -70,7 +70,7 @@ describe PendingAppealsController do
 				@appeal = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: user.id, is_accepted: true)
 			end
 
-			it "destroys a tweet" do
+			it "destroys a friend" do
 				expect{
 				  delete :destroy, id: @appeal
 				}.to change(Appeal, :count).by(-1)
