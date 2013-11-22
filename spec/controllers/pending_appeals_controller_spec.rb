@@ -63,6 +63,24 @@ describe PendingAppealsController do
 				ActionMailer::Base.deliveries.last.to.should_not == [@myappeal.user.email]
 			end
 		end
+
+		context "doing DELETE to destroy" do
+			before :each do
+				user = FactoryGirl.create(:user)
+				@appeal = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: user.id, is_accepted: true)
+			end
+
+			it "destroys a tweet" do
+				expect{
+				  delete :destroy, id: @appeal
+				}.to change(Appeal, :count).by(-1)
+			end
+
+			it "redirects to friends/ndex" do
+				delete :destroy, id: @appeal
+				response.should redirect_to(friends_path)
+			end
+		end
 	end
 
 	context "without a authenticated user" do

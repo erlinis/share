@@ -17,11 +17,11 @@ describe FriendsController do
 				user2 = FactoryGirl.create(:user)
 
 				appeal = FactoryGirl.create(:appeal, user: user, receiver_id: subject.current_user.id, is_accepted: true)
-				appeal2 = FactoryGirl.create(:appeal, user: user2, receiver_id: subject.current_user.id, is_accepted: true)
+				appeal2 = FactoryGirl.create(:appeal, user: subject.current_user, receiver_id: user2.id, is_accepted: true)
 
 				get :index
-        ids = assigns(:friends).map(&:id)
-				expect(ids).to eq([user.id, user2.id])
+				ids = assigns(:friends).map(&:user_id)
+				expect(ids).to include(subject.current_user.id, user.id)
 			end
 		end
 	end

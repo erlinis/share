@@ -18,9 +18,15 @@ class PendingAppealsController < ApplicationController
 		end
 	end
 
+	def destroy
+		appeal = Appeal.find(params[:id])
+		appeal.destroy
+		flash[:notice] = 'Your friend was removed'
+		redirect_to friends_path
+	end
 	private
 	def get_pending_appeals
-		@appeals = Appeal.where("receiver_id = :receiver and is_accepted IS NULL", receiver: current_user.id) 
+		@appeals = Appeal.where("receiver_id = :receiver and is_accepted IS NULL", receiver: current_user.id)
 	end
 
 end

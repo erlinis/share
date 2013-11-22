@@ -8,13 +8,14 @@ class Appeal < ActiveRecord::Base
 	validate :check_pending_appeal, :on => :create
   validate :self_appeal, :on => :create
   validate :user_exist
+  validate :friends_already, :on => :create
 
   after_save :send_notification
 
   private
 
   def check_pending_appeal
-  	appeal = Appeal.where("user_id = :user and receiver_id = :receiver", user: user, receiver: self.receiver_id).first
+  	appeal = Appeal.where("user_id = :user and receiver_id = :receiver", user: user, receiver: self.receiver_id).last
   	if appeal.present? && appeal.is_accepted == nil
   		errors.add(:receiver_id, "You have a request Pending for approval right now for this user")
   	end
@@ -40,4 +41,10 @@ class Appeal < ActiveRecord::Base
     end
   end
 
+  def friends_already
+    appeal = Appeal.where("user_id = :user and receiver_id = :receiver", user: user, receiver: self.receiver_id).first
+    if appeal.present? && appeal.is_accepted
+      errors.add(:receiver_id, "This user is already your friend")
+    end
+  end
 end

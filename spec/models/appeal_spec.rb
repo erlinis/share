@@ -17,6 +17,14 @@ describe Appeal do
     appeal2.should have(1).error_on(:receiver_id)
   end
 
+  it "doesnot allow to send a request to an friend" do
+    receiver = FactoryGirl.create(:user)
+    appeal = FactoryGirl.create(:appeal, user: @user, receiver_id: receiver.id, is_accepted: true)
+    appeal2 = FactoryGirl.build(:appeal, user: @user, receiver_id: receiver.id)
+    appeal2.should_not be_valid
+    appeal2.should have(1).error_on(:receiver_id)
+  end
+
   it "does not allow to add myself as a friend" do
   	appeal = FactoryGirl.build(:appeal, user: @user, receiver_id: @user.id)
   	appeal.should_not be_valid

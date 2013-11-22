@@ -3,7 +3,9 @@ class UsersController < ApplicationController
 	before_filter :authenticate_user!
 
 	def index
-		@users = User.where("id != :id", id: current_user.id)
+		send_requests = Appeal.where("user_id = :user and is_accepted = true", user: current_user.id).map(&:receiver_id)
+		received_requests = Appeal.where("receiver_id = :user and is_accepted = true", user: current_user.id).map(&:user_id)
+		@users = User.where("id not in(?)", send_requests + received_requests << current_user.id)
 	end
 
 	def show
