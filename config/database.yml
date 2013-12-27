@@ -12,3 +12,7 @@ test:
   <<: *defaults
   min_messages: warning #magic sauce
   database: share_test
+
+production:
+  <<: *defaults
+  database: share_production
