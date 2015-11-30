@@ -1,0 +1,6 @@
+[submodule "equintana.github.io"]
+	path = equintana.github.io
+	url = git://github.com/equintana/equintana.github.io.git
+[submodule "stats"]
+	path = stats
+	url = git://github.com/equintana/stats.git
