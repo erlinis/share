@@ -11,18 +11,18 @@ namespace :setup do
     submodule_list = `grep path .gitmodules | sed 's/.*= //'`.split(' ')
 
     if (ARGV.length > 1)
-      system("git pull --rebase --recurse-submodules ${1-origin master}")
+      system("git pull --rebase origin master")
 
       # Update submodules according to the parameters
       params = ARGV.drop(1).map{ |arg| arg.split(':')}
       params_hash = Hash[*params.flatten]
 
       submodule_list.each do |submodule|
-        puts "Updating #{submodule} submodule..."
+        puts "Updating submodule: #{submodule} "
         if params_hash.keys.include?(submodule)
           system("git config -f .git/config submodule.#{submodule}.branch #{params_hash[submodule]}")
           system("git submodule update --init --remote")
-          system("git config -f .git/config submodule.#{submodule}.branch master")
+          # system("git config -f .git/config submodule.#{submodule}.branch master")
         else
           system("git submodule update --init --remote")
         end

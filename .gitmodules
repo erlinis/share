@@ -4,7 +4,4 @@
 [submodule "stats"]
 	path = stats
 	url = git://github.com/equintana/stats.git
-	branch = master
-[submodule "stats"]
-	path = stats
-	url = git://github.com/equintana/stats.git
+        branch = master
